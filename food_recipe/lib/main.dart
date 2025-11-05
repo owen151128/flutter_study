@@ -14,13 +14,45 @@ class FoodRecipeApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const FoodRecipeHomePage(),
+      home: FoodRecipeHomePage(),
     );
   }
 }
 
 class FoodRecipeHomePage extends StatelessWidget {
-  const FoodRecipeHomePage({super.key});
+  FoodRecipeHomePage({super.key});
+
+  List<Map<String, dynamic>> dataList = [
+    {
+      "category": "수제버거",
+      "imgUrl":
+          "https://devclass.devstory.co.kr/flutter-basic/1/food-burger.jpg",
+    },
+    {
+      "category": "건강식",
+      "imgUrl": "https://devclass.devstory.co.kr/flutter-basic/1/food-soup.jpg",
+    },
+    {
+      "category": "한식",
+      "imgUrl":
+          "https://devclass.devstory.co.kr/flutter-basic/1/food-korean-meals.jpg",
+    },
+    {
+      "category": "디저트",
+      "imgUrl":
+          "https://devclass.devstory.co.kr/flutter-basic/1/food-tiramisu.jpg",
+    },
+    {
+      "category": "피자",
+      "imgUrl":
+          "https://devclass.devstory.co.kr/flutter-basic/1/food-pizza.jpg",
+    },
+    {
+      "category": "볶음밥",
+      "imgUrl":
+          "https://devclass.devstory.co.kr/flutter-basic/1/food-pizza.jpg",
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +151,55 @@ class FoodRecipeHomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: Text("Hello World!"),
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: "상품을 검색해주세요.",
+                suffixIcon: Icon(Icons.search),
+              ),
+            ),
+          ),
+          Divider(height: 1),
+          Expanded(
+            child: ListView.builder(
+              itemCount: dataList.length,
+              itemBuilder: (context, index) {
+                Map<String, dynamic> data = dataList[index];
+                String category = data["category"];
+                String imageUrl = data["imgUrl"];
+
+                return Card(
+                  margin: const EdgeInsets.all(10),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Image.network(
+                        imageUrl,
+                        width: double.infinity,
+                        height: 120,
+                        fit: BoxFit.cover,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        height: 120,
+                        color: Colors.black.withValues(alpha: 0.5),
+                      ),
+                      Text(
+                        category,
+                        style: TextStyle(color: Colors.white, fontSize: 36),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
