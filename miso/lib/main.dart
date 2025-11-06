@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:miso/home_page.dart';
+import 'package:miso/main_page.dart';
 
 void main() {
-  runApp(const MisoApp());
+  runApp(MisoApp());
 }
 
 class MisoApp extends StatelessWidget {
-  const MisoApp({super.key});
+  MisoApp({super.key});
+
+  final primaryColor = Color.fromARGB(255, 38, 103, 240);
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +16,12 @@ class MisoApp extends StatelessWidget {
       title: 'Miso',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: primaryColor,
+          primary: primaryColor,
+        ),
       ),
-      home: HomePage(),
+      home: MainPage(),
     );
   }
 }

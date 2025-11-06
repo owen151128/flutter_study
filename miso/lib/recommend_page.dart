@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class RecommendPage extends StatelessWidget {
+  const RecommendPage({super.key});
 
   @override
   Widget build(BuildContext context) => Scaffold(
     body: Center(
       child: Text(
-        "Home!",
+        "Recommend!",
         style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
       ),
     ),
