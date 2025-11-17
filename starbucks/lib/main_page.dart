@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:starbucks/gift_page.dart';
 import 'package:starbucks/home_page.dart';
 import 'package:starbucks/more_page.dart';
-import 'package:starbucks/order_page.dart';
+import 'package:starbucks/order/order_page.dart';
 import 'package:starbucks/pay_page.dart';
 
 class MainPage extends StatefulWidget {
