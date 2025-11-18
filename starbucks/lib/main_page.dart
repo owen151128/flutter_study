@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:starbucks/gift_page.dart';
-import 'package:starbucks/home_page.dart';
+import 'package:starbucks/home/home_page.dart';
 import 'package:starbucks/more_page.dart';
 import 'package:starbucks/order/order_page.dart';
 import 'package:starbucks/pay/pay_page.dart';
