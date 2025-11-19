@@ -13,7 +13,11 @@ class _CreatePageState extends State<CreatePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: Text("버킷리스트 작성")),
+    appBar: AppBar(
+      title: Text("버킷리스트 작성"),
+      centerTitle: true,
+      backgroundColor: Theme.of(context).primaryColor,
+    ),
     body: Padding(
       padding: const EdgeInsets.all(16),
       child: Column(

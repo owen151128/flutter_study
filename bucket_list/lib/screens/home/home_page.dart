@@ -15,7 +15,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: Text("버킷 리스트")),
+    appBar: AppBar(
+      title: Text("버킷 리스트"),
+      centerTitle: true,
+      backgroundColor: Theme.of(context).primaryColor,
+    ),
     body: bucketList.isEmpty
         ? Center(child: Text("버킷 리스트를 작성해 주세요."))
         : ListView.builder(
