@@ -1,8 +1,9 @@
 import 'package:bucket_list/screens/home/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const BucketListApp());
+  runApp(const ProviderScope(child: BucketListApp()));
 }
 
 class BucketListApp extends StatelessWidget {
@@ -15,7 +16,7 @@ class BucketListApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const HomePage(),
+      home: HomePage(),
     );
   }
 }
