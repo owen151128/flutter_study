@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CreatePage extends StatefulWidget {
@@ -14,9 +13,7 @@ class _CreatePageState extends State<CreatePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: Text("버킷리스트 작성"),
-    ),
+    appBar: AppBar(title: Text("버킷리스트 작성")),
     body: Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -24,7 +21,10 @@ class _CreatePageState extends State<CreatePage> {
           TextField(
             controller: textEditingController,
             autofocus: true,
-            decoration: InputDecoration(hintText: "하고 싶은 일을 입력하세요", errorText: error),
+            decoration: InputDecoration(
+              hintText: "하고 싶은 일을 입력하세요",
+              errorText: error,
+            ),
           ),
           SizedBox(height: 32),
           SizedBox(
