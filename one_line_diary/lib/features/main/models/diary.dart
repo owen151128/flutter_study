@@ -7,7 +7,7 @@ class Diary {
   Map<String, dynamic> toJson() {
     return {
       "text": text,
-      "createdAt": createdAt.toString();
+      "createdAt": createdAt.toString(),
   };}
 
   factory Diary.fromJson(Map<String, dynamic> jsonMap) {

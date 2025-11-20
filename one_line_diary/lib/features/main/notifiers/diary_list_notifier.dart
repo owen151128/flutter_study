@@ -43,4 +43,8 @@ class DiaryListNotifier extends AsyncNotifier<List<Diary>> {
 
     _saveDiaryList();
   }
+
+  Future<void> deleteAll() async {
+    state = AsyncValue.data([]);
+  }
 }
