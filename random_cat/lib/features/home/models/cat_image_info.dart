@@ -4,7 +4,7 @@ part 'cat_image_info.g.dart';
 
 @JsonSerializable()
 class CatImageInfo {
-  const CatImageInfo({this.id, this.url, this.width, this.height});
+  CatImageInfo({this.id, this.url, this.width, this.height});
 
   factory CatImageInfo.fromJson(Map<String, dynamic> json) =>
       _$CatImageInfoFromJson(json);

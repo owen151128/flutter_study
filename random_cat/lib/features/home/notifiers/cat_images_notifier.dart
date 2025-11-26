@@ -1,6 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:random_cat/features/home/models/cat_image_info.dart';
 import 'package:random_cat/features/network/cat_rest_client.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -26,5 +24,14 @@ class CatImagesNotifier extends _$CatImagesNotifier {
   Future<void> loadCatImages(int size) async {
     state = AsyncValue.loading();
     state = AsyncValue.data(await load(size));
+  }
+
+  bool _isSafeIndex(int index) {
+    List<CatImageInfo> result = state.value ?? [];
+    if (result.isEmpty || result.length <= index) {
+      return false;
+    }
+
+    return true;
   }
 }
