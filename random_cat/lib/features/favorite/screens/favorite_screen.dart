@@ -48,34 +48,6 @@ class FavoriteScreen extends ConsumerWidget {
               ),
             ),
           ),
-          // children: [
-          //   ...catImageFavorites.when(
-          //     data: (data) => List.generate(
-          //       favoritesCatImageInfo.length,
-          //       (i) => InkWell(
-          //         onTap: () => catImageInfoNotifier.toggleFavorites(
-          //           favoritesCatImageInfo[i],
-          //         ),
-          //         borderRadius: BorderRadius.circular(10),
-          //         splashColor: Colors.amberAccent,
-          //         child: Padding(
-          //           padding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-          //           child: ClipRRect(
-          //             borderRadius: BorderRadius.circular(10),
-          //             child: Image.network(
-          //               favoritesCatImageInfo[i].url ?? "",
-          //               fit: BoxFit.cover,
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          //     ).toList(),
-          //     error: (error, stackTrace) => [
-          //       getLoadingScreen(e: error, s: stackTrace),
-          //     ],
-          //     loading: () => [getLoadingScreen()],
-          //   ),
-          // ],
         ),
       ),
     );
