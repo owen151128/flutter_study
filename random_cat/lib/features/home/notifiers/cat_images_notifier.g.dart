@@ -50,7 +50,7 @@ final class CatImagesNotifierProvider
   }
 }
 
-String _$catImagesNotifierHash() => r'6bb9206bad6c2f11901f7ae58496b7e7e1013c3e';
+String _$catImagesNotifierHash() => r'37783e48919e15c29323064f47b0961feaa133c4';
 
 final class CatImagesNotifierFamily extends $Family
     with
