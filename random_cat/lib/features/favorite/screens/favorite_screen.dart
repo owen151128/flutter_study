@@ -40,9 +40,22 @@ class FavoriteScreen extends ConsumerWidget {
                 padding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    catImageFavorites[i].url ?? "",
-                    fit: BoxFit.cover,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: Image.network(
+                          catImageFavorites[i].url ?? "",
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 10,
+                        right: 10,
+                        child: catImageFavorites.contains(catImageFavorites[i])
+                            ? Icon(Icons.favorite, color: Colors.red)
+                            : Icon(Icons.favorite_outline, color: Colors.red),
+                      ),
+                    ],
                   ),
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cupertino_icons/cupertino_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:random_cat/features/favorite/notifiers/cat_image_favorites_notifier.dart';
@@ -12,7 +13,6 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = catImagesProvider(10);
     final catImageInfo = ref.watch(provider);
-    final catImageInfoNotifier = ref.read(provider.notifier);
     final catImageFavorites = ref.watch(catImageFavoritesProvider);
     final catImageFavoritesNotifier = ref.read(
       catImageFavoritesProvider.notifier,
@@ -55,7 +55,23 @@ class HomeScreen extends ConsumerWidget {
                   padding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.network(data[i].url ?? "", fit: BoxFit.cover),
+                    child: Stack(
+                      children: [
+                        Positioned.fill(
+                          child: Image.network(
+                            data[i].url ?? "",
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 10,
+                          right: 10,
+                          child: catImageFavorites.contains(data[i])
+                              ? Icon(Icons.favorite, color: Colors.red)
+                              : Icon(Icons.favorite_outline, color: Colors.red),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
