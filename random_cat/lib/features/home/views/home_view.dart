@@ -4,19 +4,8 @@ import 'package:random_cat/features/favorite/views/favorite_page.dart';
 import 'package:random_cat/features/home/bloc/cat_image_infos_bloc.dart';
 import 'package:random_cat/features/shared/network/models/cat_image_info.dart';
 
-class HomeView extends StatefulWidget {
+class HomeView extends StatelessWidget {
   const HomeView({super.key});
-
-  @override
-  State<HomeView> createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<CatImageInfosBloc>().add(CatImageInfosLoad());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +32,7 @@ class _HomeViewState extends State<HomeView> {
               case CatImageInfosLoaded():
                 return gridWidget(context, state.catImageInfos);
               case CatImageInfosError():
-                return retryWidget();
+                return retryWidget(context);
               default:
                 return loadingWidget(context);
             }
@@ -120,9 +109,10 @@ class _HomeViewState extends State<HomeView> {
     ),
   );
 
-  Widget retryWidget() => Center(
+  Widget retryWidget(BuildContext context) => Center(
     child: TextButton(
-      onPressed: () {},
+      onPressed: () =>
+          context.read<CatImageInfosBloc>().add(CatImageInfosLoad()),
       child: Text("재시도", style: TextStyle(fontSize: 32)),
     ),
   );
