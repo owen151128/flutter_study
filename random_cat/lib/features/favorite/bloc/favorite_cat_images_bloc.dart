@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:random_cat/features/shared/network/models/cat_image_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,7 +11,7 @@ part 'favorite_cat_images_state.dart';
 
 class FavoriteCatImagesBloc
     extends Bloc<FavoriteCatImagesEvent, FavoriteCatImagesState> {
-  FavoriteCatImagesBloc() : super(FavoriteCatImagesInitial()) {
+  FavoriteCatImagesBloc() : super(FavoriteCatImagesInitial([])) {
     on<FavoriteCatImagesLoad>(onFavoriteCatImagesLoad);
     on<FavoriteCatImagesAdd>(onFavoriteCatImagesAdd);
     on<FavoriteCatImagesRemove>(onFavoriteCatImagesRemove);
@@ -19,27 +20,15 @@ class FavoriteCatImagesBloc
 
   static const String sharedPreferenceKey = "favorite_cat_images_string_list";
 
-  List<CatImageInfo> get favoriteCatImages {
-    if (state is! FavoriteCatImagesLoaded) {
-      return [];
-    }
-
-    return (state as FavoriteCatImagesLoaded).favoriteCatImages ?? [];
-  }
-
   Future<void> onFavoriteCatImagesLoad(
     FavoriteCatImagesLoad event,
     Emitter<FavoriteCatImagesState> emit,
   ) async {
     try {
-      emit(FavoriteCatImagesLoading());
-      emit(
-        FavoriteCatImagesLoaded(
-          favoriteCatImages: await _loadLocalFavoriteCatImages(),
-        ),
-      );
+      emit(FavoriteCatImagesLoading([]));
+      emit(FavoriteCatImagesLoaded(await _loadLocalFavoriteCatImages()));
     } catch (e, st) {
-      emit(FavoriteCatImagesError(error: e, stackTrace: st));
+      emit(FavoriteCatImagesError([], e, st));
     }
   }
 
@@ -49,13 +38,13 @@ class FavoriteCatImagesBloc
   ) async {
     try {
       final List<CatImageInfo> added = [
-        ...favoriteCatImages,
+        ...state.favoriteCatImages,
         event.catImageInfo,
       ];
       await _saveLocalFavoriteCatImages(added);
-      emit(FavoriteCatImagesLoaded(favoriteCatImages: added));
+      emit(FavoriteCatImagesLoaded(added));
     } catch (e, st) {
-      emit(FavoriteCatImagesError(error: e, stackTrace: st));
+      emit(FavoriteCatImagesError([], e, st));
     }
   }
 
@@ -64,12 +53,12 @@ class FavoriteCatImagesBloc
     Emitter<FavoriteCatImagesState> emit,
   ) async {
     try {
-      favoriteCatImages.remove(event.catImageInfo);
-      final List<CatImageInfo> removed = [...favoriteCatImages];
+      final List<CatImageInfo> removed = [...state.favoriteCatImages];
+      removed.remove(event.catImageInfo);
       await _saveLocalFavoriteCatImages(removed);
-      emit(FavoriteCatImagesLoaded(favoriteCatImages: removed));
+      emit(FavoriteCatImagesLoaded(removed));
     } catch (e, st) {
-      emit(FavoriteCatImagesError(error: e, stackTrace: st));
+      emit(FavoriteCatImagesError([], e, st));
     }
   }
 

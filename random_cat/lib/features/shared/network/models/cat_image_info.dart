@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'cat_image_info.freezed.dart';
@@ -5,7 +6,7 @@ part 'cat_image_info.g.dart';
 
 @JsonSerializable()
 @freezed
-class CatImageInfo with _$CatImageInfo {
+class CatImageInfo extends Equatable with _$CatImageInfo {
   CatImageInfo({this.id, this.url, this.width, this.height});
 
   factory CatImageInfo.fromJson(Map<String, dynamic> json) =>
@@ -17,4 +18,7 @@ class CatImageInfo with _$CatImageInfo {
   final int? height;
 
   Map<String, dynamic> toJson() => _$CatImageInfoToJson(this);
+
+  @override
+  List<Object?> get props => [id, url, width, height];
 }

@@ -26,17 +26,13 @@ $CatImageInfoCopyWith<CatImageInfo> get copyWith => _$CatImageInfoCopyWithImpl<C
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CatImageInfo&&(identical(other.id, id) || other.id == id)&&(identical(other.url, url) || other.url == url)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CatImageInfo&&super == other&&(identical(other.id, id) || other.id == id)&&(identical(other.url, url) || other.url == url)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,url,width,height);
+int get hashCode => Object.hash(runtimeType,super.hashCode,id,url,width,height);
 
-@override
-String toString() {
-  return 'CatImageInfo(id: $id, url: $url, width: $width, height: $height)';
-}
 
 
 }

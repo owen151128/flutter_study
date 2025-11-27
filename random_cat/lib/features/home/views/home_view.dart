@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:random_cat/features/favorite/bloc/favorite_cat_images_bloc.dart';
-import 'package:random_cat/features/favorite/views/favorite_page.dart';
+import 'package:random_cat/features/favorite/views/favorite_view.dart';
 import 'package:random_cat/features/home/bloc/cat_image_infos_bloc.dart';
 import 'package:random_cat/features/shared/network/models/cat_image_info.dart';
+import 'package:random_cat/features/shared/widgets/common_widgets.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -21,7 +22,7 @@ class HomeView extends StatelessWidget {
             icon: Icon(Icons.favorite),
             onPressed: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => FavoritePage()),
+              MaterialPageRoute(builder: (context) => FavoriteView()),
             ),
           ),
         ],
@@ -33,14 +34,23 @@ class HomeView extends StatelessWidget {
               case CatImageInfosLoaded():
                 return gridWidget(context, state.catImageInfos);
               case CatImageInfosError():
-                return retryWidget(context);
+                return CommonWidgets.retryWidget(
+                  context,
+                  () => context.read<CatImageInfosBloc>().add(
+                    CatImageInfosLoad(),
+                  ),
+                );
               default:
-                return loadingWidget(context);
+                return CommonWidgets.loadingWidget(context);
             }
           },
           listener: (context, state) {
             if (state is CatImageInfosError) {
-              showErrorDialog(context, state.error, state.stackTrace);
+              CommonWidgets.showErrorDialog(
+                context,
+                state.error,
+                state.stackTrace,
+              );
             }
           },
         ),
@@ -58,6 +68,7 @@ class HomeView extends StatelessWidget {
           onTap: () {
             if (context
                 .read<FavoriteCatImagesBloc>()
+                .state
                 .favoriteCatImages
                 .contains(catImageInfos[i])) {
               context.read<FavoriteCatImagesBloc>().add(
@@ -89,6 +100,7 @@ class HomeView extends StatelessWidget {
                     child:
                         context
                             .watch<FavoriteCatImagesBloc>()
+                            .state
                             .favoriteCatImages
                             .contains(catImageInfos[i])
                         ? Icon(Icons.favorite, color: Colors.red)
@@ -99,57 +111,6 @@ class HomeView extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget loadingWidget(BuildContext context) => Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.height * 0.07,
-          height: MediaQuery.of(context).size.height * 0.07,
-          child: CircularProgressIndicator(color: Colors.amberAccent),
-        ),
-        SizedBox(height: 20),
-        Text(
-          "로딩중...",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
-        ),
-      ],
-    ),
-  );
-
-  Widget retryWidget(BuildContext context) => Center(
-    child: TextButton(
-      onPressed: () =>
-          context.read<CatImageInfosBloc>().add(CatImageInfosLoad()),
-      child: Text("재시도", style: TextStyle(fontSize: 32)),
-    ),
-  );
-
-  void showErrorDialog(
-    BuildContext context,
-    Object error,
-    StackTrace stackTrace,
-  ) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text("오류"),
-        content: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Text("$error\n$stackTrace"),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text("Ok"),
-          ),
-        ],
       ),
     );
   }
