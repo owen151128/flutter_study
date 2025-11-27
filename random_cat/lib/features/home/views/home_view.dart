@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:random_cat/features/favorite/bloc/favorite_cat_images_bloc.dart';
 import 'package:random_cat/features/favorite/views/favorite_page.dart';
 import 'package:random_cat/features/home/bloc/cat_image_infos_bloc.dart';
 import 'package:random_cat/features/shared/network/models/cat_image_info.dart';
@@ -55,11 +56,18 @@ class HomeView extends StatelessWidget {
         catImageInfos.length,
         (i) => InkWell(
           onTap: () {
-            // if (catImageFavorites.contains(data[i])) {
-            //   catImageFavoritesNotifier.remove(data[i]);
-            // } else {
-            //   catImageFavoritesNotifier.add(data[i]);
-            // }
+            if (context
+                .read<FavoriteCatImagesBloc>()
+                .favoriteCatImages
+                .contains(catImageInfos[i])) {
+              context.read<FavoriteCatImagesBloc>().add(
+                FavoriteCatImagesRemove(catImageInfo: catImageInfos[i]),
+              );
+            } else {
+              context.read<FavoriteCatImagesBloc>().add(
+                FavoriteCatImagesAdd(catImageInfo: catImageInfos[i]),
+              );
+            }
           },
           borderRadius: BorderRadius.circular(10),
           splashColor: Colors.amberAccent,
@@ -75,13 +83,17 @@ class HomeView extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  // Positioned(
-                  //   bottom: 10,
-                  //   right: 10,
-                  //   child: catImageFavorites.contains(data[i])
-                  //       ? Icon(Icons.favorite, color: Colors.red)
-                  //       : Icon(Icons.favorite_outline, color: Colors.red),
-                  // ),
+                  Positioned(
+                    bottom: 10,
+                    right: 10,
+                    child:
+                        context
+                            .watch<FavoriteCatImagesBloc>()
+                            .favoriteCatImages
+                            .contains(catImageInfos[i])
+                        ? Icon(Icons.favorite, color: Colors.red)
+                        : Icon(Icons.favorite_outline, color: Colors.red),
+                  ),
                 ],
               ),
             ),
