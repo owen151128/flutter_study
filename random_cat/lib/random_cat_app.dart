@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:random_cat/features/home/screens/home_screen.dart';
+
+import 'features/home/views/home_page.dart';
 
 class RandomCatApp extends StatelessWidget {
   const RandomCatApp({super.key});
@@ -9,9 +10,9 @@ class RandomCatApp extends StatelessWidget {
     return MaterialApp(
       title: 'Random cat app',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
       ),
-      home: const HomeScreen(),
+      home: const HomePage(),
     );
   }
 }

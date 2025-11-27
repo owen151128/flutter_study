@@ -1,9 +1,13 @@
 import "package:json_annotation/json_annotation.dart";
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'cat_image_info.freezed.dart';
 
 part 'cat_image_info.g.dart';
 
 @JsonSerializable()
-class CatImageInfo {
+@freezed
+class CatImageInfo with _$CatImageInfo {
   CatImageInfo({this.id, this.url, this.width, this.height});
 
   factory CatImageInfo.fromJson(Map<String, dynamic> json) =>

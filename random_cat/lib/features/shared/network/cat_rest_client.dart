@@ -1,5 +1,5 @@
 import "package:dio/dio.dart";
-import "package:random_cat/features/home/models/cat_image_info.dart";
+import "package:random_cat/features/shared/network/models/cat_image_info.dart";
 import "package:retrofit/retrofit.dart";
 
 part 'cat_rest_client.g.dart';
