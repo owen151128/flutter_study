@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 
 class FavoriteView extends StatelessWidget {
   const FavoriteView({super.key});
